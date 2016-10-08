@@ -16,11 +16,11 @@ from pyfiglet import figlet_format
 HANDSHAKE_START_HZ = 8192
 HANDSHAKE_END_HZ = 8192 + 512
 
-START_HZ = 1024
+START_HZ = 48000
 STEP_HZ = 256
 BITS = 4
 
-FEC_BYTES = 4
+FEC_BYTES = 8
 
 def stereo_to_mono(input_file, output_file):
     inp = wave.open(input_file, 'r')
