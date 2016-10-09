@@ -2,6 +2,15 @@ from flask import Flask, request, redirect
 import twilio.twiml
 import datetime
 import unicodedata
+from wolfram import auto_answer
+
+from twilio.rest import TwilioRestClient 
+ 
+# put your own credentials here 
+ACCOUNT_SID = "AC194f638dd0a28e46ea3767b5a5c0767c"
+AUTH_TOKEN = "c29f42bf54189047eea14a58c93bec93" 
+ 
+client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
 app = Flask(__name__)
 
@@ -27,16 +36,30 @@ def match_intent(li,sentence):
             return True
     return False
 
+def send_mms(media_link="https://c1.staticflickr.com/3/2899/14341091933_1e92e62d12_b.jpg",to_number="+19784068914"):
+    res = client.messages.create(
+    to=to_number, 
+    from_="+", 
+    body="This message has image attached to it.", 
+    media_url=media_link, 
+    )
+    print(res.status,res.price, res.num_media)
+
+@app.route("/mms", methods=['GET'])
+def check_mms():
+    send_mms()
+    return 'Success!'
 
 @app.route("/", methods=['GET', 'POST'])
 def main_response():
         """Respond and greet the caller by name."""
         from_number = request.values.get('From', None)
-        text = request.values.get('Body','Nothing recieved')
+        text = request.values.get('Body','')
         num_media = request.values.get('NumMedia',0)
         if text:
             text = text.lower()
-            text = unicodedata.normalize('NFKD', text).encode('ascii','ignore')
+            if isinstance(text, unicode):
+                text = unicodedata.normalize('NFKD', text).encode('ascii','ignore')
             print("Message recieved --> " + text)
             sender_name = ''
             message = 'Sorry couldn\'t understand you'
@@ -86,12 +109,16 @@ def main_response():
             elif match_intent(greeting,text):
                 print("greeting")
                 message = "Hi "+sender_name+", I'm your personal assistant. Feel free to ask me anything!"
-            else :
-                message = "Not something I could think of!"
+            else:
+                auto_reply = auto_answer(text)
+                if auto_reply:
+                    message = auto_reply
             resp = twilio.twiml.Response()  
             resp.message(message)
             print(message) 
             return str(resp)
+            print("Response -->",resp)
+        return "No text detected"
 
 if __name__ == "__main__":
         app.run(debug=True)

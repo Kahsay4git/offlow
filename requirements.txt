@@ -6,3 +6,4 @@ reedsolo
 termcolor
 Flask>=0.8
 twilio>=3.3.6
+xmltodict
