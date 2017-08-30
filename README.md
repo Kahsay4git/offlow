@@ -39,3 +39,9 @@ We learned the use of Fourier transforms in processing the Audio signals along w
 ## What's next for Offlow
 
 We are looking forward to extend the offline data transfer to images and videos as well using Audio or Wifi Signals without using a network connection. Larger payloads would need to be chunked across several error corrected packets, which requires client and server support for it. We can experiment to find the range of frequencies that can reliably be transmitted and recorded. A wider range means more chunk bits, which directly impacts throughput. We are also looking forward to make a automated voice based personal assistant (Off-siri) utilizing the toll free calling capabilities.
+
+## Contributing
+All patches Welcome!
+
+## License
+GNU GPL v3 - see the [LICENSE](https://github.com/satwikkansal/offlow/blob/master/LICENSE) file for details.
