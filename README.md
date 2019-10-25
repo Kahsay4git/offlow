@@ -36,12 +36,16 @@ We were successfully able to demonstrate the use case of offline payments in the
 
 We learned the use of Fourier transforms in processing the Audio signals along with the use CRC algorithms which maintain the integrity of data being transmitted. We explored the APIs of Target and Wolfram to improve the quality of our personal assistant's responses. Most importantly, we learned how data can be transmitted without a network connection and external hardware, which can be helpful in providing internet access in developing and underdeveloped countries.
 
-## What's next for Offlow
+## How could we have extended the idea further
 
 We are looking forward to extend the offline data transfer to images and videos as well using Audio or Wifi Signals without using a network connection. Larger payloads would need to be chunked across several error corrected packets, which requires client and server support for it. We can experiment to find the range of frequencies that can reliably be transmitted and recorded. A wider range means more chunk bits, which directly impacts throughput. We are also looking forward to make a automated voice based personal assistant (Off-siri) utilizing the toll free calling capabilities.
 
 ## Contributing
 All patches Welcome!
+
+## Credits
+
+- https://github.com/rraval/pied-piper
 
 ## License
 GNU GPL v3 - see the [LICENSE](https://github.com/satwikkansal/offlow/blob/master/LICENSE) file for details.
